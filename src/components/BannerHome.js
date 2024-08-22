@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
@@ -17,6 +17,18 @@ const BannerHome = () => {
     }
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (currentImage < bannerData.length -1) {
+        handleNext()
+      }else{
+        setCurrentImage(0)
+      }
+    }, 5000)
+
+    return ()=> clearInterval(interval)
+  },[bannerData, imageURL])
+
   return (
     <section className="w-full h-full">
       <div className="flex min-h-full max-h-[95vh] overflow-hidden">
@@ -24,7 +36,7 @@ const BannerHome = () => {
           console.log(data);
 
           return (
-            <div className="min-w-full min-h-[450px] lg:min-h-full overflow-hidden relative group transition-all" style={{ transform: `translateX(-${currentImage *100}%)` }}>
+            <div key={data.id+"bannerHome"+index} className="min-w-full min-h-[450px] lg:min-h-full overflow-hidden relative group transition-all" style={{ transform: `translateX(-${currentImage *100}%)` }}>
               <div className="w-full h-full">
                 <img
                   src={imageURL + data.backdrop_path}
