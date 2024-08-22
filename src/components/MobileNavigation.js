@@ -11,9 +11,9 @@ const MobileNavigation = () => {
             <NavLink
               key={nav.label + "mobilenavigation"}
               to={nav.href}
-              className={({ isActiove }) =>
+              className={({ isActive }) =>
                 `px-3 flex h-full items-center flex-col justify-center ${
-                  isActiove && "text-white"
+                  isActive && "text-white"
                 }`
               }
             >
