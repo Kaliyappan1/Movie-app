@@ -4,6 +4,15 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 
+.scrollbar-hide {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
 body {
   margin: 0;
   font-family: "Nunito Sans", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -11,6 +20,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
   @apply bg-neutral-900 text-neutral-300
 }
 
@@ -18,3 +28,4 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
