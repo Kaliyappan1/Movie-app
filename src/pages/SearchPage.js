@@ -72,7 +72,7 @@ const SearchPage = () => {
       </div>
 
       <div className="container mx-auto">
-        <h3 className="capitalize text-lg lg:text-xl font-semibold my-3 mx-2 sticky top-[120px] z-30">
+        <h3 className="capitalize text-lg lg:text-xl font-semibold my-3 mx-2 top-[80px] z-30">
           Search Results
         </h3>
 

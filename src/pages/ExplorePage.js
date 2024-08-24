@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Card from '../components/Card'
+import _ from 'lodash';  // <-- Import lodash for debouncing
 
 const ExplorePage = () => {
   const params = useParams()
@@ -30,27 +31,29 @@ const ExplorePage = () => {
     }
   }
 
-  const handleScroll = ()=>{
-    if((window.innerHeight + window.scrollY ) >= document.body.offsetHeight){
-      setPageNo(preve => preve + 1)
+  // Updated handleScroll function with debounce
+  const handleScroll = _.debounce(() => {
+    if((window.innerHeight + window.scrollY ) >= document.body.offsetHeight - 1000){
+      setPageNo(preve => preve + 5)
     }
-  }
+  }, 200);  // <-- Debounce delay in milliseconds (200ms)
 
   useEffect(()=>{
     fetchData()
   },[pageNo])
 
   useEffect(()=>{
-      setPageNo(1)
+      setPageNo(5)
       setData([])
       fetchData()
   },[params.explore])
 
   useEffect(()=>{
       window.addEventListener('scroll',handleScroll)
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };  // <-- Clean up the event listener on component unmount
   },[])
-
-
 
   return (
     <div className='py-16'>
