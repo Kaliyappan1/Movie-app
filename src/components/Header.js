@@ -23,7 +23,7 @@ const Header = () => {
     }
 
   return (
-    <header className='fixed top-0 w-full h-16 bg-black bg-opacity-50 z-40'>
+    <header className='fixed top-0 w-full h-16 bg-black bg-opacity-50 backdrop-blur-sm z-40'>
             <div className='container mx-auto px-3 flex items-center h-full'>
                 <Link to={"/"}>
                     <h1 className='text-white font-bold text-center'><span className='text-2xl text-orange-500'>Kaliyappan</span> <br /> Movie App</h1>

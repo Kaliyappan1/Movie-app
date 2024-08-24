@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
-    <footer className='text-center bg-neutral-600 bg-opacity-35 text-neutral-400 py-2'>
+    <footer className='text-center bg-orange-700/10 bg-opacity-35 text-neutral-400 py-2 backdrop-blur-sm'>
      <div className='flex items-center justify-center gap-4'>
      <a target='_blank' href="https://kaliyappan-r.web.app/">About</a>
       <a target='_blank' href="mailto:kaliyappanr.tech@gmail.com">Contact</a>
