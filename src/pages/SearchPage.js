@@ -10,6 +10,7 @@ const SearchPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  
 
   const fetchData = async () => {
     setLoading(true);
@@ -71,11 +72,11 @@ const SearchPage = () => {
       </div>
 
       <div className="container mx-auto">
-        <h3 className="capitalize text-lg lg:text-xl font-semibold my-3">
+        <h3 className="capitalize text-lg lg:text-xl font-semibold my-3 mx-2 sticky top-[120px] z-30">
           Search Results
         </h3>
 
-        <div className="grid grid-cols-[repeat(auto-fit,230px)] gap-6 justify-center lg:justify-start">
+        <div className="grid grid-cols-[repeat(auto-fit,230px)] gap-6 justify-center lg:justify-start top-[150px]">
           {data.map((searchData) => (
             <Card
               data={searchData}
