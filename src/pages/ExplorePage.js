@@ -1,79 +1,74 @@
-import axios from "axios";
-import React, { useEffect, useState, useCallback } from "react";
-import { useLocation } from "react-router-dom";
-import Card from "../components/Card";
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import Card from '../components/Card'
 
-const SearchPage = () => {
-  const location = useLocation();
-  const [data, setData] = useState([]);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+const ExplorePage = () => {
+  const params = useParams()
+  const [pageNo,setPageNo] = useState(1)
+  const [data,setData] = useState([])
+  const [totalPageNo,setTotalPageNo] = useState(0)
 
-  const fetchData = async () => {
-    setLoading(true);
-    setError(null);
+  console.log("params",params.explore)
+
+  const fetchData = async()=>{
     try {
-      const response = await axios.get("/search/collection", {
-        params: {
-          query: location?.search?.slice(3),
-          page: page,
-        },
-      });
-      setData((prev) => (page === 1 ? response.data.results : [...prev, ...response.data.results]));
+        const response = await axios.get(`/discover/${params.explore}`,{
+          params : {
+            page : pageNo
+          }
+        })
+        setData((preve)=>{
+          return[
+              ...preve,
+              ...response.data.results
+          ]
+        })
+        setTotalPageNo(response.data.total_pages)
     } catch (error) {
-      console.error("Error fetching data:", error);
-      setError("Failed to load data.");
-    } finally {
-      setLoading(false);
+        console.log('error',error)
     }
-  };
+  }
 
-  useEffect(() => {
-    setPage(1);
-    setData([]);
-    fetchData();
-  }, [location?.search]);
-
-  const handleScroll = useCallback(() => {
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 1000 && !loading) {
-      setPage((prev) => prev + 1);
+  const handleScroll = ()=>{
+    if((window.innerHeight + window.scrollY ) >= document.body.offsetHeight){
+      setPageNo(preve => preve + 1)
     }
-  }, [loading]);
+  }
 
-  useEffect(() => {
-    if (page > 1) fetchData();
-  }, [page]);
+  useEffect(()=>{
+    fetchData()
+  },[pageNo])
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [handleScroll]);
+  useEffect(()=>{
+      setPageNo(1)
+      setData([])
+      fetchData()
+  },[params.explore])
+
+  useEffect(()=>{
+      window.addEventListener('scroll',handleScroll)
+  },[])
+
+
 
   return (
-    <div className="py-16">
-      <div className="container mx-auto">
-        <h3 className="capitalize text-lg lg:text-xl font-semibold my-3">
-          Search Results
-        </h3>
+    <div className='py-16'>
+        <div className='container mx-auto'>
+            <h3 className='capitalize text-lg lg:text-xl font-semibold my-3'>Popular {params.explore} show</h3>
 
-        <div className="grid grid-cols-[repeat(auto-fit,230px)] gap-6 justify-center lg:justify-start">
-          {data.map((searchData) => (
-            <Card
-              data={searchData}
-              key={searchData.id + "search"}
-              media_type={searchData.media_type}
-            />
-          ))}
+            <div className='grid grid-cols-[repeat(auto-fit,230px)] gap-6 justify-center lg:justify-start'>
+              {
+                data.map((exploreData,index)=>{
+                  return(
+                    <Card data={exploreData} key={exploreData.id+"exploreSEction"} media_type={params.explore}/>
+                  )
+                })
+              }
+            </div>
         </div>
-
-        {loading && <p>Loading more results...</p>}
-        {error && <p className="text-red-500 mt-4">{error}</p>}
-      </div>
     </div>
-  );
-};
+  )
+}
 
-export default SearchPage;
+export default ExplorePage

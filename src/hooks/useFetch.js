@@ -26,7 +26,7 @@ const useFetch = (endpoint) => {
 
   useEffect(() => {
     fetchData(page); // Fetch data on initial load
-  }, [page]);
+  }, [page, endpoint]);
 
   const loadMoreData = () => {
     if (hasMore && !loading) {
