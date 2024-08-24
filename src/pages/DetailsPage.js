@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useFetchDetails from "../hooks/useFetchDetails";
 import { useSelector } from "react-redux";
@@ -21,8 +21,18 @@ const DetailsPage = () => {
     `/${params?.explore}/${params?.id}/recommendations`
   );
 
-  console.log("data", data);
-  console.log("start cast", castData);
+  console.log(data);
+  
+
+  useEffect(() => {
+    window.scrollTo(
+      {
+        top: 0,
+        behavior: "smooth",
+      }
+    );
+  }, [params]);
+
 
   const duration = (data?.runtime / 60)?.toFixed(1)?.split(".");
   const writer = castData?.crew
@@ -32,8 +42,6 @@ const DetailsPage = () => {
     )
     .map((el) => el?.name)
     .join(", ");
-
-  console.log("writer", writer);
 
   return (
     <div>
@@ -55,7 +63,7 @@ const DetailsPage = () => {
           />
         </div>
         <div>
-          <h2 className="text-2xl lg:text-4xl font-bold text-white">
+          <h2 className="text-4xl my-3 lg:text-5xl lg font-bold text-white">
             {data?.title || data?.name}
           </h2>
           <p className="text-neutral-400 ">{data?.tagline}</p>
@@ -137,11 +145,13 @@ const DetailsPage = () => {
       <div>
         <HorizontalScrollCard
           data={similarData}
-          heading={"Similar " + params?.explore} media_type={params?.explore}
+          heading={"Similar " + params?.explore}
+          media_type={params?.explore}
         />
         <HorizontalScrollCard
           data={recommendationData}
-          heading={"recommentation " + params?.explore} media_type={params?.explore}
+          heading={"recommentation " + params?.explore}
+          media_type={params?.explore}
         />
       </div>
     </div>

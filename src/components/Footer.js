@@ -8,7 +8,7 @@ const Footer = () => {
      <a target='_blank' href="https://kaliyappan-r.web.app/">About</a>
       <a target='_blank' href="mailto:kaliyappanr.tech@gmail.com">Contact</a>
      </div>
-     <p className='text-sm'>Created by Dynamic Coding with Kaliyappan</p>
+     <p className='text-sm text-white'>Created by Dynamic Coding with Kaliyappan</p>
     </footer>
   )
 }
